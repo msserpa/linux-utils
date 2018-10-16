@@ -123,8 +123,8 @@ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 
 Change the following lines in =/etc/fail2ban/jail.local/ file
 #+BEGIN_SRC 
-bantime  = 604800
-findtime = 21600
+bantime  = 168h
+findtime = 6h
 maxretry = 3
 
 [sshd]
