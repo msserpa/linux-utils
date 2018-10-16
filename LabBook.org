@@ -1,0 +1,137 @@
+#+TITLE: linux-utils
+#+AUTHOR: Matheus Serpa
+#+STARTUP: overview indent
+#+TAGS: noexport(n) deprecated(d)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+SEQ_TODO: TODO(t!) STARTED(s!) WAITING(w!) | DONE(d!) CANCELLED(c!) DEFERRED(f!)
+
+* Linux
+
+** Updating and Upgrading
+
+#+begin_src shell :results output :exports both
+sudo apt update
+sudo apt upgrade -y
+sudo apt dist-upgrade y
+#+end_src
+
+** Snoopy
+
+Install the package
+#+begin_src shell :results output :exports both
+sudo apt install snoopy
+#+end_src
+
+Add the following line to =/etc/snoopy.ini/
+#+BEGIN_SRC 
+output = file:/var/log/snoopy.log
+#+END_SRC
+
+Restart syslog service
+#+begin_src shell :results output :exports both
+sudo service rsyslog restart
+#+end_src
+
+** Firewall
+
+Install the package
+#+begin_src shell :results output :exports both
+sudo apt install ufw
+#+end_src
+
+#+RESULTS:
+
+Enable and check the status
+#+begin_src shell :results output :exports both
+sudo ufw enable
+sudo ufw status
+#+end_src
+
+Enable logging
+#+begin_src shell :results output :exports both
+sudo ufw logging on
+#+end_src
+
+Set up defaults
+#+begin_src shell :results output :exports both
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+#+end_src
+
+Adding a rule
+#+begin_src shell :results output :exports both
+sudo ufw allow ssh
+#+end_src
+** OpenSSH
+
+Editing the configuration file
+
+#+begin_src shell :results output :exports both
+sudo vim /etc/ssh/sshd_config
+#+end_src
+
+My sshd config file
+#+BEGIN_SRC 
+Protocol 2
+Port 22
+LogLevel VERBOSE
+LoginGraceTime 2m
+PermitRootLogin no 
+StrictModes yes
+MaxAuthTries 3
+MaxSessions 3
+PubkeyAuthentication yes
+HostbasedAuthentication no
+IgnoreRhosts yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+UsePAM yes
+AllowAgentForwarding no
+AllowTcpForwarding no
+X11Forwarding no
+PrintMotd no
+ClientAliveInterval 300
+ClientAliveCountMax 3
+Banner /etc/issue.my.net
+AcceptEnv LANG LC_*
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+#+END_SRC
+
+Ldap users should add the following lines at the end of the file
+#+BEGIN_SRC 
+AuthorizedKeysCommand /usr/bin/authp
+AuthorizedKeysCommandUser root
+#+END_SRC
+
+Restart the SSH daemon
+#+begin_src shell :results output :exports both
+sudo systemctl restart sshd
+#+end_src
+** Fail2Ban
+
+Install the package
+#+begin_src shell :results output :exports both
+sudo apt install fail2ban
+#+end_src
+
+Copy fail2ban configuration file
+#+begin_src shell :results output :exports both
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+#+end_src
+
+Change the following lines in =/etc/fail2ban/jail.local/ file
+#+BEGIN_SRC 
+bantime  = 604800
+findtime = 21600
+maxretry = 3
+
+[sshd]
+enabled = true
+#+END_SRC
+
+Restart fail2ban service
+#+begin_src shell :results output :exports both
+sudo service fail2ban restart
+#+end_src
