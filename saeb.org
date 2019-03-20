@@ -742,9 +742,9 @@ dfALUNO$ALUNO_Q2 <- ifelse(dfALUNO$ALUNO_Q002 == "A", 1, ifelse(dfALUNO$ALUNO_Q0
 
 dfALUNO <- subset(dfALUNO, ALUNO_Q2 = 0 | ALUNO_Q2 = 1)
 
-dfALUNO$ALUNO_Q19 <- ifelse(dfALUNO$ALUNO_Q019 == "A", 1, ifelse(dfALUNO$ALUNO_Q019 == "B", 1, ifelse(dfALUNO$ALUNO_Q019 == "C", 2, ifelse(dfALUNO$ALUNO_Q019 == "D", 2, ifelse(dfALUNO$ALUNO_Q019 == "E", 3, ifelse(dfALUNO$ALUNO_Q019 == "F", 4, NA))))))
+dfALUNO$ALUNO_Q19 <- ifelse(dfALUNO$ALUNO_Q019 == "A", 1, ifelse(dfALUNO$ALUNO_Q019 == "B", 1, ifelse(dfALUNO$ALUNO_Q019 == "C", 2, ifelse(dfALUNO$ALUNO_Q019 == "D", 2, ifelse(dfALUNO$ALUNO_Q019 == "E", 3, ifelse(dfALUNO$ALUNO_Q019 == "F", 4, -1))))))
 
-dfALUNO$ALUNO_Q23 <- ifelse(dfALUNO$ALUNO_Q023 == "A", 1, ifelse(dfALUNO$ALUNO_Q023 == "B", 1, ifelse(dfALUNO$ALUNO_Q023 == "C", 2, ifelse(dfALUNO$ALUNO_Q023 == "D", 2, ifelse(dfALUNO$ALUNO_Q023 == "E", 3, ifelse(dfALUNO$ALUNO_Q023 == "F", 4, NA))))))
+dfALUNO$ALUNO_Q23 <- ifelse(dfALUNO$ALUNO_Q023 == "A", 1, ifelse(dfALUNO$ALUNO_Q023 == "B", 1, ifelse(dfALUNO$ALUNO_Q023 == "C", 2, ifelse(dfALUNO$ALUNO_Q023 == "D", 2, ifelse(dfALUNO$ALUNO_Q023 == "E", 3, ifelse(dfALUNO$ALUNO_Q023 == "F", 4, -1))))))
 
 #esc pai e mae
 dfALUNO <- subset(dfALUNO, ALUNO_Q19 != -1)
