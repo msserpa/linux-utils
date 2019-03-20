@@ -400,8 +400,10 @@ dfESCOLA$DEPENDENCIA_ADM <- ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 2, 1,
                             ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 4, 0, "NA")))
 dfESCOLA$ID_DEPENDENCIA_ADM <- NULL
 
-dfESCOLA$LOCALIZACAO <- ifelse(dfESCOLA$ID_LOCALIZACAO == 1, "Urbana", 
-                        ifelse(dfESCOLA$ID_LOCALIZACAO == 2, "Rural", "NA"))
+#dfESCOLA$LOCALIZACAO <- ifelse(dfESCOLA$ID_LOCALIZACAO == 1, "Urbana", 
+#                        ifelse(dfESCOLA$ID_LOCALIZACAO == 2, "Rural", "NA"))
+dfESCOLA$LOCALIZACAO <- ifelse(dfESCOLA$ID_LOCALIZACAO == 1, 1, 
+                        ifelse(dfESCOLA$ID_LOCALIZACAO == 2, 0, "NA"))
 dfESCOLA$ID_LOCALIZACAO <- NULL
 
 dfESCOLA$PC_FORMACAO_DOCENTE_INICIAL <- NULL
@@ -613,8 +615,10 @@ dfALUNO$ID_AREA <- NULL
 
 dfALUNO$ID_DEPENDENCIA_ADM <- NULL
 
-dfALUNO$LOCALIZACAO <- ifelse(dfALUNO$ID_LOCALIZACAO == 1, "Urbana", 
-                       ifelse(dfALUNO$ID_LOCALIZACAO == 2, "Rural", "NA"))
+#dfALUNO$LOCALIZACAO <- ifelse(dfALUNO$ID_LOCALIZACAO == 1, "Urbana", 
+#                       ifelse(dfALUNO$ID_LOCALIZACAO == 2, "Rural", "NA"))
+dfALUNO$LOCALIZACAO <- ifelse(dfALUNO$ID_LOCALIZACAO == 1, 1, 
+                       ifelse(dfALUNO$ID_LOCALIZACAO == 2, 0, "NA"))
 dfALUNO$ID_LOCALIZACAO <- NULL
 
 #ID_TURMA left(ALUNO,PROFESSOR)
