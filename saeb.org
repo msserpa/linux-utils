@@ -391,12 +391,14 @@ dfESCOLA$ID_MUNICIPIO <- NULL
 
 dfESCOLA <- subset(dfESCOLA, ID_DEPENDENCIA_ADM != 1)
 
-dfESCOLA$DEPENDENCIA_ADM <- ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 1, "Federal", 
-                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 2, "Estadual", 
-                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 3, "Municipal", 
-                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 4, "Privada", "NA"))))
+#dfESCOLA$DEPENDENCIA_ADM <- ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 1, "Federal", 
+#                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 2, "Estadual", 
+#                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 3, "Municipal", 
+#                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 4, "Privada", "NA"))))
+dfESCOLA$DEPENDENCIA_ADM <- ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 2, 1, 
+                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 3, 1, 
+                            ifelse(dfESCOLA$ID_DEPENDENCIA_ADM == 4, 0, "NA")))
 dfESCOLA$ID_DEPENDENCIA_ADM <- NULL
-
 
 dfESCOLA$LOCALIZACAO <- ifelse(dfESCOLA$ID_LOCALIZACAO == 1, "Urbana", 
                         ifelse(dfESCOLA$ID_LOCALIZACAO == 2, "Rural", "NA"))
@@ -697,6 +699,7 @@ names(dfPROFESSORMT) <- str_replace(names(dfPROFESSORMT), "TX_RESP_Q", "Q")
 
 #if(FALSE){
 # begin luana
+
 dfALUNO$ESCOLA_Q37 <- ifelse(dfALUNO$ESCOLA_Q037 == "D", 0, ifelse(dfALUNO$ESCOLA_Q037 == "C", 1, ifelse(dfALUNO$ESCOLA_Q037 == "B", 1, ifelse(dfALUNO$ESCOLA_Q037 == "A", 1, NA))))
 
 dfALUNO$ESCOLA_Q38 <- ifelse(dfALUNO$ESCOLA_Q038 == "D", 0, ifelse(dfALUNO$ESCOLA_Q038 == "C", 1, ifelse(dfALUNO$ESCOLA_Q038 == "B", 1, ifelse(dfALUNO$ESCOLA_Q038 == "A", 1, NA))))
