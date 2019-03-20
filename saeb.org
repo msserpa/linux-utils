@@ -5,22 +5,6 @@
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+SEQ_TODO: TODO(t!) STARTED(s!) WAITING(w!) | DONE(d!) CANCELLED(c!) DEFERRED(f!)
-
-* municipio 
-
-#+begin_src R :results output :session *R* :exports both
-library(dplyr)
-library(readr)
-library(tidyr)
-#options(crayon.enabled = FALSE)
-
-dfMUNICIPIO <- read_csv("./TS_MUNICIPIO.csv") %>%
-as.data.frame
-
-#head(dfMUNICIPIO)
-#+end_src
-
-
 * professor 
 
 #+begin_src R :results output :session *R* :exports both
@@ -28,13 +12,10 @@ library(dplyr)
 library(readr)
 library(tidyr)
 
-#readr.show_progress <- TRUE
-#dfPROFESSORBKP <- read_csv("./TS_PROFESSOR.csv") %>%
-dfPROFESSOR <- read_csv("./TS_PROFESSOR.csv") %>%
-as.data.frame
+dfPROFESSOR <- read_csv("./TS_PROFESSOR.csv") %>% as.data.frame
 
-#nrow(dfPROFESSORBKP)
-#head(dfPROFESSORBKP)
+#nrow(dfPROFESSOR)
+#head(dfPROFESSOR)
 #+end_src
 
 
@@ -42,67 +23,25 @@ as.data.frame
 library(dplyr)
 library(readr)
 library(tidyr)
-#options(crayon.enabled = FALSE)
-
-#dfPROFESSOR <- dfPROFESSORBKP
-
 
 dfPROFESSOR <- subset(dfPROFESSOR, IN_PREENCHIMENTO_QUESTIONARIO != 0)
 dfPROFESSOR$IN_PREENCHIMENTO_QUESTIONARIO <- NULL
 
 dfPROFESSOR$ID_PROVA_BRASIL <- NULL
 
-#dfPROFESSOR$UF <- ifelse(dfPROFESSOR$ID_UF == 11, "RO",
-#                  ifelse(dfPROFESSOR$ID_UF == 12, "AC",
-#                  ifelse(dfPROFESSOR$ID_UF == 13, "AM",
-#                  ifelse(dfPROFESSOR$ID_UF == 14, "RR",
-#                  ifelse(dfPROFESSOR$ID_UF == 15, "PA",
-#                  ifelse(dfPROFESSOR$ID_UF == 16, "AP",
-#                  ifelse(dfPROFESSOR$ID_UF == 17, "TO",
-#                  ifelse(dfPROFESSOR$ID_UF == 21, "MA",
-#                  ifelse(dfPROFESSOR$ID_UF == 22, "PI",
-#                  ifelse(dfPROFESSOR$ID_UF == 23, "CE",
-#                  ifelse(dfPROFESSOR$ID_UF == 24, "RN",
-#                  ifelse(dfPROFESSOR$ID_UF == 25, "PB",
-#                  ifelse(dfPROFESSOR$ID_UF == 26, "PE",
-#                  ifelse(dfPROFESSOR$ID_UF == 27, "AL",
-#                  ifelse(dfPROFESSOR$ID_UF == 28, "SE",
-#                  ifelse(dfPROFESSOR$ID_UF == 29, "BA",
-#                  ifelse(dfPROFESSOR$ID_UF == 31, "MG",
-#                  ifelse(dfPROFESSOR$ID_UF == 32, "ES",
-#                  ifelse(dfPROFESSOR$ID_UF == 33, "RJ",
-#                  ifelse(dfPROFESSOR$ID_UF == 35, "SP",
-#                  ifelse(dfPROFESSOR$ID_UF == 41, "PR",
-#                  ifelse(dfPROFESSOR$ID_UF == 42, "SC",
-#                  ifelse(dfPROFESSOR$ID_UF == 43, "RS",
-#                  ifelse(dfPROFESSOR$ID_UF == 50, "MS",
-#                  ifelse(dfPROFESSOR$ID_UF == 51, "MT",
-#                  ifelse(dfPROFESSOR$ID_UF == 52, "GO",
-#                  ifelse(dfPROFESSOR$ID_UF == 53, "DF", "NA")))))))))))))))))))))))))))
 dfPROFESSOR$ID_UF <- NULL
 
 dfPROFESSOR <- dfPROFESSOR %>% left_join(dfMUNICIPIO) %>% filter(!is.na(MUNICIPIO))
 dfPROFESSOR$ID_MUNICIPIO <- NULL
 
-#dfPROFESSOR$ID_ESCOLA <- NULL
-
-#dfPROFESSOR <- subset(dfPROFESSOR, ID_DEPENDENCIA_ADM != 1)
-
-#dfPROFESSOR$DEPENDENCIA_ADM <- ifelse(dfPROFESSOR$ID_DEPENDENCIA_ADM == 1, "Federal", 
-#                               ifelse(dfPROFESSOR$ID_DEPENDENCIA_ADM == 2, "Estadual", 
-#                               ifelse(dfPROFESSOR$ID_DEPENDENCIA_ADM == 3, "Municipal", 
-#                               ifelse(dfPROFESSOR$ID_DEPENDENCIA_ADM == 4, "Privada", "NA"))))
 dfPROFESSOR$ID_DEPENDENCIA_ADM <- NULL
 
-#dfPROFESSOR$LOCALIZACAO <- ifelse(dfPROFESSOR$ID_LOCALIZACAO == 1, "Urbana", 
-#                           ifelse(dfPROFESSOR$ID_LOCALIZACAO == 2, "Rural", "NA"))
 dfPROFESSOR$ID_LOCALIZACAO <- NULL
+
+dfPROFESSOR$CO_PROFESSOR <- NULL
 
 #ID_TURMA left(ALUNO,PROFESSOR)
 
-#dfPROFESSOR$SERIE <- ifelse(dfPROFESSOR$ID_SERIE == 5, "4 série/5 ano EF", 
-#                     ifelse(dfPROFESSOR$ID_SERIE == 9, "8 série/9 ano EF", 
-#                     ifelse(dfPROFESSOR$ID_SERIE == 12, "3 Série do Ensino Médio", "NA")))
 dfPROFESSOR$ID_SERIE <- NULL
 
 dfPROFESSOR$TX_RESP_Q001 <- NULL
@@ -236,12 +175,11 @@ names(dfPROFESSOR) <- paste("PROFESSOR", names(dfPROFESSOR), sep = "_")
 dfPROFESSORPT <- subset(dfPROFESSOR, PROFESSOR_TX_RESP_Q105 == "A" | PROFESSOR_TX_RESP_Q105 == "C")
 dfPROFESSORMT <- subset(dfPROFESSOR, PROFESSOR_TX_RESP_Q105 == "B" | PROFESSOR_TX_RESP_Q105 == "C")
 
-#dfPROFESSORPT$PROFESSOR_TX_RESP_Q105 <- NULL
-#dfPROFESSORMT$PROFESSOR_TX_RESP_Q105 <- NULL
-
 #head(dfPROFESSOR)
 #head(dfPROFESSORPT)
 #head(dfPROFESSORMT)
+
+rm("dfPROFESSOR")
 #+end_src
 
 * diretor 
