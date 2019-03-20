@@ -547,12 +547,10 @@ library(dplyr)
 library(readr)
 library(tidyr)
 
-readr.show_progress <- TRUE
-#dfALUNOBKP <- read_csv("./TS_ALUNO_5EF.csv") %>%
-dfALUNO <- read_csv("./TS_ALUNO_5EF.csv") %>%
-as.data.frame
-#nrow(dfALUNOBKP)
-#head(dfALUNOBKP)
+dfALUNO <- read_csv("./TS_ALUNO_5EF.csv") %>% as.data.frame
+
+#nrow(dfALUNO)
+#head(dfALUNO)
 #+end_src
 
 
@@ -561,8 +559,6 @@ library(dplyr)
 library(readr)
 library(tidyr)
 library(stringr)
-
-#dfALUNO <- dfALUNOBKP
 
 dfALUNO <- subset(dfALUNO, IN_PREENCHIMENTO_QUESTIONARIO != 0)
 dfALUNO$IN_PREENCHIMENTO_QUESTIONARIO <- NULL
@@ -605,7 +601,6 @@ dfALUNO$UF <- ifelse(dfALUNO$ID_UF == 11, "RO",
               ifelse(dfALUNO$ID_UF == 53, "DF", "NA")))))))))))))))))))))))))))
 dfALUNO$ID_UF <- NULL
 
-dfALUNO <- dfALUNO %>% left_join(dfMUNICIPIO) %>%  filter(!is.na(MUNICIPIO))
 dfALUNO$ID_MUNICIPIO <- NULL
 
 dfALUNO$AREA <- ifelse(dfALUNO$ID_AREA == 1, "Capital", 
@@ -614,12 +609,6 @@ dfALUNO$ID_AREA <- NULL
 
 #ID_ESCOLA left(ALUNO,ESCOLA)
 
-dfALUNO <- subset(dfALUNO, ID_DEPENDENCIA_ADM != 1)
-
-dfALUNO$DEPENDENCIA_ADM <- ifelse(dfALUNO$ID_DEPENDENCIA_ADM == 1, "Federal", 
-                           ifelse(dfALUNO$ID_DEPENDENCIA_ADM == 2, "Estadual", 
-                           ifelse(dfALUNO$ID_DEPENDENCIA_ADM == 3, "Municipal", 
-                           ifelse(dfALUNO$ID_DEPENDENCIA_ADM == 4, "Privada", "NA"))))
 dfALUNO$ID_DEPENDENCIA_ADM <- NULL
 
 dfALUNO$LOCALIZACAO <- ifelse(dfALUNO$ID_LOCALIZACAO == 1, "Urbana", 
@@ -641,24 +630,38 @@ dfALUNO$TX_RESP_BLOCO_1_MT <- NULL
 dfALUNO$TX_RESP_BLOCO_2_MT <- NULL
 dfALUNO$IN_PROVA_BRASIL <- NULL
 dfALUNO$ESTRATO_ANEB <- NULL
+
+
+
 dfALUNO$TX_RESP_Q003 <- NULL
+dfALUNO$TX_RESP_Q004 <- NULL
+
+
+
+
+
+
+
+
 
 dfALUNO$TX_RESP_Q014 <- NULL
 dfALUNO$TX_RESP_Q015 <- NULL
 dfALUNO$TX_RESP_Q016 <- NULL
 dfALUNO$TX_RESP_Q017 <- NULL
+dfALUNO$TX_RESP_Q018 <- NULL
+
+dfALUNO$TX_RESP_Q020 <- NULL
+dfALUNO$TX_RESP_Q021 <- NULL
+dfALUNO$TX_RESP_Q022 <- NULL
+
+dfALUNO$TX_RESP_Q024 <- NULL
+dfALUNO$TX_RESP_Q025 <- NULL
+dfALUNO$TX_RESP_Q026 <- NULL
 dfALUNO$TX_RESP_Q027 <- NULL
 dfALUNO$TX_RESP_Q028 <- NULL
 dfALUNO$TX_RESP_Q029 <- NULL
 dfALUNO$TX_RESP_Q030 <- NULL
 dfALUNO$TX_RESP_Q031 <- NULL
-
-dfALUNO$TX_RESP_Q018 <- NULL
-dfALUNO$TX_RESP_Q020 <- NULL
-dfALUNO$TX_RESP_Q021 <- NULL
-dfALUNO$TX_RESP_Q022 <- NULL
-dfALUNO$TX_RESP_Q024 <- NULL
-dfALUNO$TX_RESP_Q025 <- NULL
 dfALUNO$TX_RESP_Q032 <- NULL
 dfALUNO$TX_RESP_Q033 <- NULL
 dfALUNO$TX_RESP_Q034 <- NULL
@@ -684,8 +687,8 @@ names(dfALUNO) <- paste("ALUNO", names(dfALUNO), sep = "_")
 
 #head(dfESCOLA)
 dfALUNO <- left_join(dfALUNO, dfESCOLA, by = c("ALUNO_ID_ESCOLA"="ESCOLA_ID_ESCOLA")) %>%  filter(!is.na(ESCOLA_UF))
-dfALUNO$ESCOLA_UF <- NULL
-dfALUNO$ALUNO_ID_ESCOLA <- NULL
+#dfALUNO$ESCOLA_UF <- NULL
+#dfALUNO$ALUNO_ID_ESCOLA <- NULL
 #head(dfALUNO)
 
 names(dfALUNO) <- str_replace(names(dfALUNO), "TX_RESP_Q", "Q")
@@ -732,11 +735,9 @@ dfALUNO$ALUNO_Q2 <- ifelse(dfALUNO$ALUNO_Q002 == "A", 1, ifelse(dfALUNO$ALUNO_Q0
 
 dfALUNO <- subset(dfALUNO, ALUNO_Q2 = 0 | ALUNO_Q2 = 1)
 
-dfALUNO$ALUNO_Q19 <- ifelse(dfALUNO$ALUNO_Q019 == "A", 0, ifelse(dfALUNO$ALUNO_Q019 == "B", 0, ifelse(dfALUNO$ALUNO_Q019 == "C", 1, ifelse(dfALUNO$ALUNO_Q019 == "D", 1, ifelse(dfALUNO$ALUNO_Q019 == "E", 2, ifelse(dfALUNO$ALUNO_Q019 == "F", 3, -1))))))
+dfALUNO$ALUNO_Q19 <- ifelse(dfALUNO$ALUNO_Q019 == "A", 0, ifelse(dfALUNO$ALUNO_Q019 == "B", 0, ifelse(dfALUNO$ALUNO_Q019 == "C", 1, ifelse(dfALUNO$ALUNO_Q019 == "D", 1, ifelse(dfALUNO$ALUNO_Q019 == "E", 2, ifelse(dfALUNO$ALUNO_Q019 == "F", 3, NA))))))
 
-dfALUNO$ALUNO_Q23 <- ifelse(dfALUNO$ALUNO_Q023 == "A", 0, ifelse(dfALUNO$ALUNO_Q023 == "B", 0, ifelse(dfALUNO$ALUNO_Q023 == "C", 1, ifelse(dfALUNO$ALUNO_Q023 == "D", 1, ifelse(dfALUNO$ALUNO_Q023 == "E", 2, ifelse(dfALUNO$ALUNO_Q023 == "F", 3, -1))))))
-
-#dfALUNO$ALUNO_ESCPAIS <- max(dfALUNO$ALUNO_Q019, dfALUNO$ALUNO_Q023)
+dfALUNO$ALUNO_Q23 <- ifelse(dfALUNO$ALUNO_Q023 == "A", 0, ifelse(dfALUNO$ALUNO_Q023 == "B", 0, ifelse(dfALUNO$ALUNO_Q023 == "C", 1, ifelse(dfALUNO$ALUNO_Q023 == "D", 1, ifelse(dfALUNO$ALUNO_Q023 == "E", 2, ifelse(dfALUNO$ALUNO_Q023 == "F", 3, NA))))))
 
 #esc pai e mae
 dfALUNO <- subset(dfALUNO, ALUNO_Q19 != -1)
@@ -792,8 +793,8 @@ dfPROFESSORMT$PROFESSOR_ESCPROF <- max(dfPROFESSORMT$PROFESSOR_Q004, dfPROFESSOR
 # end luana
 #}
 
-dfALUNOMasc <- subset(dfALUNO, ALUNO_Q001 == "A")
-dfALUNOFem  <- subset(dfALUNO, ALUNO_Q001 == "B")
+#dfALUNOMasc <- subset(dfALUNO, ALUNO_Q001 == "A")
+#dfALUNOFem  <- subset(dfALUNO, ALUNO_Q001 == "B")
 
 #dfALUNOMasc$ALUNO_Q001 <- NULL
 #dfALUNOFem$ALUNO_Q001 <- NULL
@@ -832,7 +833,7 @@ head(dfALUNOMT)
 #write.csv(file="dfALUNOMascMT.csv", dfALUNOMascMT, row.names=FALSE, na="")
 #write.csv(file="dfALUNOFemPT.csv", dfALUNOFemPT, row.names=FALSE, na="")
 #write.csv(file="dfALUNOFemMT.csv", dfALUNOFemMT, row.names=FALSE, na="")
-write.csv(file="dfALUNOPT.csv", dfALUNOPT, row.names=FALSE, na="")                                                                                                                               
-write.csv(file="dfALUNOMT.csv", dfALUNOMT, row.names=FALSE, na="")                                                                                                                               
+
+write.csv(file="dfALUNOPT.csv", dfALUNOPT, row.names=FALSE, na="")                                                                write.csv(file="dfALUNOMT.csv", dfALUNOMT, row.names=FALSE, na="")                                                                                                                               
 
 #+end_src
