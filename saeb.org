@@ -189,13 +189,10 @@ library(dplyr)
 library(readr)
 library(tidyr)
 
-readr.show_progress <- TRUE
-#dfDIRETORBKP <- read_csv("./TS_DIRETOR.csv") %>%
-dfDIRETOR <- read_csv("./TS_DIRETOR.csv") %>%
-as.data.frame
+dfDIRETOR <- read_csv("./TS_DIRETOR.csv") %>% as.data.frame
 
-#nrow(dfDIRETORBKP)
-#head(dfDIRETORBKP)
+nrow(dfDIRETORBKP)
+head(dfDIRETORBKP)
 #+end_src
 
 #+begin_src R :results output :session *R* :exports both
@@ -203,58 +200,19 @@ library(dplyr)
 library(readr)
 library(tidyr)
 
-#dfDIRETOR <- dfDIRETORBKP
-
 dfDIRETOR <- subset(dfDIRETOR, IN_PREENCHIMENTO_QUESTIONARIO != 0)
 dfDIRETOR$IN_PREENCHIMENTO_QUESTIONARIO <- NULL
 
 dfDIRETOR$ID_PROVA_BRASIL <- NULL
 
-dfDIRETOR$UF <- ifelse(dfDIRETOR$ID_UF == 11, "RO",
-                ifelse(dfDIRETOR$ID_UF == 12, "AC",
-                ifelse(dfDIRETOR$ID_UF == 13, "AM",
-                ifelse(dfDIRETOR$ID_UF == 14, "RR",
-                ifelse(dfDIRETOR$ID_UF == 15, "PA",
-                ifelse(dfDIRETOR$ID_UF == 16, "AP",
-                ifelse(dfDIRETOR$ID_UF == 17, "TO",
-                ifelse(dfDIRETOR$ID_UF == 21, "MA",
-                ifelse(dfDIRETOR$ID_UF == 22, "PI",
-                ifelse(dfDIRETOR$ID_UF == 23, "CE",
-                ifelse(dfDIRETOR$ID_UF == 24, "RN",
-                ifelse(dfDIRETOR$ID_UF == 25, "PB",
-                ifelse(dfDIRETOR$ID_UF == 26, "PE",
-                ifelse(dfDIRETOR$ID_UF == 27, "AL",
-                ifelse(dfDIRETOR$ID_UF == 28, "SE",
-                ifelse(dfDIRETOR$ID_UF == 29, "BA",
-                ifelse(dfDIRETOR$ID_UF == 31, "MG",
-                ifelse(dfDIRETOR$ID_UF == 32, "ES",
-                ifelse(dfDIRETOR$ID_UF == 33, "RJ",
-                ifelse(dfDIRETOR$ID_UF == 35, "SP",
-                ifelse(dfDIRETOR$ID_UF == 41, "PR",
-                ifelse(dfDIRETOR$ID_UF == 42, "SC",
-                ifelse(dfDIRETOR$ID_UF == 43, "RS",
-                ifelse(dfDIRETOR$ID_UF == 50, "MS",
-                ifelse(dfDIRETOR$ID_UF == 51, "MT",
-                ifelse(dfDIRETOR$ID_UF == 52, "GO",
-                ifelse(dfDIRETOR$ID_UF == 53, "DF", "NA")))))))))))))))))))))))))))
 dfDIRETOR$ID_UF <- NULL
 
-dfDIRETOR <- dfDIRETOR %>% left_join(dfMUNICIPIO) %>% filter(!is.na(MUNICIPIO))
 dfDIRETOR$ID_MUNICIPIO <- NULL
 
 #ID_ESCOLA left(ESCOLA,DIRETOR)
 
-dfDIRETOR <- subset(dfDIRETOR, ID_DEPENDENCIA_ADM != 1)
-
-dfDIRETOR$DEPENDENCIA_ADM <- ifelse(dfDIRETOR$ID_DEPENDENCIA_ADM == 1, "Federal", 
-                             ifelse(dfDIRETOR$ID_DEPENDENCIA_ADM == 2, "Estadual", 
-                             ifelse(dfDIRETOR$ID_DEPENDENCIA_ADM == 3, "Municipal", 
-                             ifelse(dfDIRETOR$ID_DEPENDENCIA_ADM == 4, "Privada", "NA"))))
 dfDIRETOR$ID_DEPENDENCIA_ADM <- NULL
 
-
-dfDIRETOR$LOCALIZACAO <- ifelse(dfDIRETOR$ID_LOCALIZACAO == 1, "Urbana", 
-                         ifelse(dfDIRETOR$ID_LOCALIZACAO == 2, "Rural", "NA"))
 dfDIRETOR$ID_LOCALIZACAO <- NULL
 
 dfDIRETOR$TX_RESP_Q001 <- NULL
@@ -270,7 +228,11 @@ dfDIRETOR$TX_RESP_Q010 <- NULL
 dfDIRETOR$TX_RESP_Q011 <- NULL
 dfDIRETOR$TX_RESP_Q012 <- NULL
 dfDIRETOR$TX_RESP_Q013 <- NULL
+dfDIRETOR$TX_RESP_Q014 <- NULL
 dfDIRETOR$TX_RESP_Q015 <- NULL
+dfDIRETOR$TX_RESP_Q016 <- NULL
+dfDIRETOR$TX_RESP_Q017 <- NULL
+dfDIRETOR$TX_RESP_Q018 <- NULL
 dfDIRETOR$TX_RESP_Q019 <- NULL
 dfDIRETOR$TX_RESP_Q020 <- NULL
 dfDIRETOR$TX_RESP_Q021 <- NULL
@@ -290,18 +252,45 @@ dfDIRETOR$TX_RESP_Q034 <- NULL
 dfDIRETOR$TX_RESP_Q035 <- NULL
 dfDIRETOR$TX_RESP_Q036 <- NULL
 dfDIRETOR$TX_RESP_Q037 <- NULL
+
 dfDIRETOR$TX_RESP_Q039 <- NULL
 dfDIRETOR$TX_RESP_Q040 <- NULL
 dfDIRETOR$TX_RESP_Q041 <- NULL
 dfDIRETOR$TX_RESP_Q042 <- NULL
 dfDIRETOR$TX_RESP_Q043 <- NULL
 dfDIRETOR$TX_RESP_Q044 <- NULL
+dfDIRETOR$TX_RESP_Q045 <- NULL
+dfDIRETOR$TX_RESP_Q046 <- NULL
+dfDIRETOR$TX_RESP_Q047 <- NULL
+dfDIRETOR$TX_RESP_Q048 <- NULL
+dfDIRETOR$TX_RESP_Q049 <- NULL
+dfDIRETOR$TX_RESP_Q050 <- NULL
+dfDIRETOR$TX_RESP_Q051 <- NULL
+dfDIRETOR$TX_RESP_Q052 <- NULL
+dfDIRETOR$TX_RESP_Q053 <- NULL
+dfDIRETOR$TX_RESP_Q054 <- NULL
+dfDIRETOR$TX_RESP_Q055 <- NULL
 dfDIRETOR$TX_RESP_Q056 <- NULL
 dfDIRETOR$TX_RESP_Q057 <- NULL
 dfDIRETOR$TX_RESP_Q058 <- NULL
 dfDIRETOR$TX_RESP_Q059 <- NULL
 dfDIRETOR$TX_RESP_Q060 <- NULL
 dfDIRETOR$TX_RESP_Q061 <- NULL
+dfDIRETOR$TX_RESP_Q062 <- NULL
+dfDIRETOR$TX_RESP_Q063 <- NULL
+dfDIRETOR$TX_RESP_Q064 <- NULL
+dfDIRETOR$TX_RESP_Q065 <- NULL
+dfDIRETOR$TX_RESP_Q066 <- NULL
+dfDIRETOR$TX_RESP_Q067 <- NULL
+
+dfDIRETOR$TX_RESP_Q069 <- NULL
+dfDIRETOR$TX_RESP_Q070 <- NULL
+dfDIRETOR$TX_RESP_Q071 <- NULL
+dfDIRETOR$TX_RESP_Q072 <- NULL
+dfDIRETOR$TX_RESP_Q073 <- NULL
+dfDIRETOR$TX_RESP_Q074 <- NULL
+dfDIRETOR$TX_RESP_Q075 <- NULL
+dfDIRETOR$TX_RESP_Q076 <- NULL
 dfDIRETOR$TX_RESP_Q077 <- NULL
 dfDIRETOR$TX_RESP_Q078 <- NULL
 dfDIRETOR$TX_RESP_Q079 <- NULL
@@ -315,6 +304,16 @@ dfDIRETOR$TX_RESP_Q086 <- NULL
 dfDIRETOR$TX_RESP_Q087 <- NULL
 dfDIRETOR$TX_RESP_Q088 <- NULL
 dfDIRETOR$TX_RESP_Q089 <- NULL
+dfDIRETOR$TX_RESP_Q090 <- NULL
+dfDIRETOR$TX_RESP_Q091 <- NULL
+dfDIRETOR$TX_RESP_Q092 <- NULL
+dfDIRETOR$TX_RESP_Q093 <- NULL
+dfDIRETOR$TX_RESP_Q094 <- NULL
+dfDIRETOR$TX_RESP_Q095 <- NULL
+dfDIRETOR$TX_RESP_Q096 <- NULL
+dfDIRETOR$TX_RESP_Q097 <- NULL
+
+
 dfDIRETOR$TX_RESP_Q100 <- NULL
 dfDIRETOR$TX_RESP_Q101 <- NULL
 dfDIRETOR$TX_RESP_Q102 <- NULL
@@ -683,14 +682,6 @@ dfALUNO$ALUNO_Q23 <- ifelse(dfALUNO$ALUNO_Q023 == "A", 0, ifelse(dfALUNO$ALUNO_Q
 #esc pai e mae
 dfALUNO <- subset(dfALUNO, ALUNO_Q19 != -1)
 dfALUNO <- subset(dfALUNO, ALUNO_Q23 != -1)
-
-dfALUNO$DIRETOR_Q14 <- ifelse(dfALUNO$DIRETOR_Q014 == "A", 0, ifelse(dfALUNO$DIRETOR_Q014 == "B", 1, ifelse(dfALUNO$DIRETOR_Q014 == "C", 2, ifelse(dfALUNO$DIRETOR_Q014 == "D", 3, ifelse(dfALUNO$DIRETOR_Q014 == "E", 4, ifelse(dfALUNO$DIRETOR_Q014 == "F", 5, ifelse(dfALUNO$DIRETOR_Q014 == "G", 6, NA)))))))
-
-dfALUNO$DIRETOR_Q16 <- ifelse(dfALUNO$DIRETOR_Q016 == "A", 0, ifelse(dfALUNO$DIRETOR_Q016 == "B", 0, ifelse(dfALUNO$DIRETOR_Q016 == "C", 1, ifelse(dfALUNO$DIRETOR_Q016 == "D", 2, ifelse(dfALUNO$DIRETOR_Q016 == "E", 3, ifelse(dfALUNO$DIRETOR_Q016 == "F", 4, ifelse(dfALUNO$DIRETOR_Q016 == "G", 4, NA)))))))
-
-dfALUNO$DIRETOR_Q17 <- ifelse(dfALUNO$DIRETOR_Q017 == "A", 0, ifelse(dfALUNO$DIRETOR_Q017 == "B", 0, ifelse(dfALUNO$DIRETOR_Q017 == "C", 1, ifelse(dfALUNO$DIRETOR_Q017 == "D", 2, ifelse(dfALUNO$DIRETOR_Q017 == "E", 3, ifelse(dfALUNO$DIRETOR_Q017 == "F", 4, ifelse(dfALUNO$DIRETOR_Q017 == "G", 4, NA)))))))
-
-dfALUNO$DIRETOR_Q18 <- ifelse(dfALUNO$DIRETOR_Q018 == "A", 0, ifelse(dfALUNO$DIRETOR_Q018 == "B", 0, ifelse(dfALUNO$DIRETOR_Q018 == "C", 1, ifelse(dfALUNO$DIRETOR_Q018 == "D", 2, ifelse(dfALUNO$DIRETOR_Q018 == "E", 3, ifelse(dfALUNO$DIRETOR_Q018 == "F", 4, ifelse(dfALUNO$DIRETOR_Q018 == "G", 4, NA)))))))
 
 dfPROFESSORMT$PROFESSOR_Q2 <- ifelse(dfPROFESSORMT$PROFESSOR_Q002 == "A", 1, ifelse(dfPROFESSORMT$PROFESSOR_Q002 == "B", 2, ifelse(dfPROFESSORMT$PROFESSOR_Q002 == "C", 2, ifelse(dfPROFESSORMT$PROFESSOR_Q002 == "D", 3, ifelse(dfPROFESSORMT$PROFESSOR_Q002 == "E", 3, ifelse(dfPROFESSORMT$PROFESSOR_Q002 == "F", 4, NA))))))
 
